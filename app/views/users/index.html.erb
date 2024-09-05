@@ -1,0 +1,29 @@
+<h1>All Users</h1>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @users.each do |t| %>
+        <tr>
+            <td> <%= t.name %></td>
+            <td> <%= t.email %></td>
+            <td>Delete</td>
+        </tr>
+         <% end %>
+    </tbody>
+</table> 
