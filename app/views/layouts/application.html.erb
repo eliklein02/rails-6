@@ -9,9 +9,8 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg| %>
-      <%= msg %>
-    <% end %>
+
+    <%= render 'layouts/flash' %>
     <%= yield %>
   </body>
 </html>

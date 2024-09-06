@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show, :edit, :update, :destroy]
+
+
   def show
-   @id = params[:id]
-   @user = User.find(@id)
   end
 
   def index
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:name, :email))
+    @user = User.new(user_params)
     if @user.save
       flash[:notice] = "Article was created successfully"
       redirect_to @user
@@ -23,12 +24,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(params.require(:user).permit(:name, :email))
+    if @user.update(user_params)
       flash[:notice] = "User was successfully updated"
       redirect_to @user
     else
@@ -37,13 +36,22 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     if @user.destroy
       flash[:notice] = "User deleted"
       redirect_to users_path
     else
       render @user
     end
+  end
+
+  private
+
+  def find_user
+    @user = User.find(params[:id])
+  end
+  
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
   
 end
