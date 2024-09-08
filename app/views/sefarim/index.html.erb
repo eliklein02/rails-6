@@ -1,0 +1,16 @@
+<h1>Sefarim</h1>
+
+<% @sefer.each do |sefer| %>
+        <h2>Name</h2>
+        <%= sefer.name %>
+
+        <h2>Author</h2>
+        <%= sefer.author %>
+        <hr>
+
+        <%= link_to 'View', sefarim_path(sefer) %> | 
+        <!-- <%= link_to 'Delete', sefarim_path(sefer), method: :destroy %> |-->
+        <%= link_to 'Edit', edit_sefarim_path(sefer) %>
+<% end %>
+<hr>
+<%= link_to 'New Sefer', new_sefarim_path %>

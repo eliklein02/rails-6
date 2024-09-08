@@ -1,0 +1,11 @@
+<h1>Edit Person</h1>
+
+<%= form_with(model: @person, local: true) do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :blood_type %>
+<%= f.text_field :blood_type %>
+
+<%= f.submit %>
+<% end %>

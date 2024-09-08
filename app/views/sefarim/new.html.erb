@@ -1,0 +1,12 @@
+<h1>New Sefer</h1>
+
+<%= form_with(model: @sefer, url: sefarim_path(@sefer), local: true) do |form| %>
+    <%= form.label :name%>
+    <%= form.text_field :name%>
+
+    <%= form.label :author%>
+    <%= form.text_field :author%>
+
+    <%= form.submit%>
+
+<% end %>
