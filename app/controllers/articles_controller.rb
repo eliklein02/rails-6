@@ -1,9 +1,11 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :require_user, except: %i[ show index ]
+  before_action :require_same_user, only: [ :edit, :update, :destroy ]
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /articles/1 or /articles/1.json
@@ -12,6 +14,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
+    redirect_to login_path if !logged_in?
     @article = Article.new
   end
 
@@ -22,7 +25,7 @@ class ArticlesController < ApplicationController
   # POST /articles or /articles.json
   def create
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
 
     respond_to do |format|
       if @article.save
@@ -82,5 +85,13 @@ class ArticlesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def article_params
       params.require(:article).permit(:title, :description, :user_id)
+    end
+
+    def require_same_user
+      if current_user != @article.user && !current_user.admin?
+        # puts true
+        flash[:alert] = "You are not authorized to do this"
+        redirect_to articles_path
+      end
     end
 end

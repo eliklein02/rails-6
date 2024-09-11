@@ -1,3 +1,11 @@
-    <% flash.each do |name, msg| %>
-      <%= msg %>
-    <% end %>
+<% flash.each do |name, msg| %>
+  <% if name == 'notice'%>
+    <div class='green'>
+     <%= msg %>
+    </div>
+  <% elsif name == 'alert' %>
+   <div class='red'>
+     <%= msg %>
+    </div>
+  <% end %>
+<% end %>

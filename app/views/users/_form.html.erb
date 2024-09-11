@@ -16,7 +16,12 @@
     </p>
 
     <p>
-        <%= f.submit %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+    </p>
+
+    <p>
+        <%= f.submit(@user.new_record? ? "Sign Up" : "Edit" )%>
     </p>
 
 <% end %>
